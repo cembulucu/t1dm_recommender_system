@@ -3,8 +3,8 @@ venv_t1dm_rec_sys/
 
 # Pycharm stuff
 .idea/
+__pycache__/
 
 # Data folders
-
 t1dm_xmls/
 t1dm_pickles/
