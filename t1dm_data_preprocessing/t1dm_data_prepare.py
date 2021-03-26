@@ -104,7 +104,7 @@ def xml_read_variables(path):
 
 def prepare_dateset(data_dict, prev_time_interval, reward_cgm_offset, reward_cgm_interval_length):
     """ this method prepares the bandit like dataset, at each round we will have a single value for each variable """
-    boluses, basals, meals, prev_cgms, next_cgms_mean = [], [], [], [], []
+    boluses, basals, meals, prev_cgms, next_cgms = [], [], [], [], []
     skin_temps, air_temps, gsrs, steps, exercises, heart_rates = [], [], [], [], [], []
     for i, (bolus_val, bolus_date) in enumerate(zip(data_dict['bolus_values'], data_dict['bolus_dates'])):
         # for each bolus event, check previous events for contexts and upcoming events for rewards
@@ -180,7 +180,7 @@ def prepare_dateset(data_dict, prev_time_interval, reward_cgm_offset, reward_cgm
         # save variables
         boluses.append(bolus_val)
         prev_cgms.append(prev_cgm_avg)
-        next_cgms_mean.append(next_cgm_avg)
+        next_cgms.append(next_cgm_avg)
         meals.append(prev_meal_avg)
         basals.append(prev_basal_avg)
         skin_temps.append(prev_skin_temp_avg)
@@ -190,7 +190,7 @@ def prepare_dateset(data_dict, prev_time_interval, reward_cgm_offset, reward_cgm
         exercises.append(prev_exercise_avg)
         heart_rates.append(prev_heart_rate_avg)
 
-    data_dict = {'boluses': np.array(boluses), 'prev_cgms': np.array(prev_cgms), 'next_cgms_mean': np.array(next_cgms_mean),
+    data_dict = {'boluses': np.array(boluses), 'prev_cgms': np.array(prev_cgms), 'next_cgms': np.array(next_cgms),
                  'meals': np.array(meals), 'basals': np.array(basals), 'skin_temps': np.array(skin_temps),
                  'air_temps': np.array(air_temps), 'gsrs': np.array(gsrs), 'steps': np.array(steps),
                  'exercises': np.array(exercises), 'heart_rates': np.array(heart_rates)}
