@@ -28,6 +28,7 @@ class T1DMEnvironment:
         reward_variable_name = ['next_cgms']
         num_patients = len(patients_data)
 
+        self.dx, self.da = len(context_names), len(arm_names)
         self.patient_ids = []
         self.patient_occurrences = []
         contexts, arms, reward_variables = [], [], []
@@ -63,7 +64,7 @@ class T1DMEnvironment:
 
         # oversample the contexts, arms and reward variables so all number of data for each patient is equal for the regression model
         ros = RandomOverSampler()
-        ros.fit_sample(contexts, self.patient_ids)
+        ros.fit_resample(contexts, self.patient_ids)
         rus_inds = ros.sample_indices_
         contexts, arms, reward_variables = contexts[rus_inds], arms[rus_inds], reward_variables[rus_inds]
 
