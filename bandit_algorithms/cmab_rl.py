@@ -43,7 +43,10 @@ class ContextualMultiArmedBanditWithRelevanceLearning:
         # get params
         self.horizon, self.dx, self.da, self.dx_bar, self.da_bar, self.lip_c, self.conf_scale =\
             horizon, dx, da, dx_bar, da_bar, lip_c, conf_scale
-        # calculate m
+        # calculate m, round to 8 decimals in order to mitigate rounding errors
+        # at higher decimals which cause ceil function to wrongly ceil to a larger value
+        # example: 100000**(1 / 5) returns 10.000000000000002, when performed ceil on it, it is then taken as 11. But we know that
+        # 100000**(1/5) = 10, and its ceil should be 10
         self.m = int(np.ceil(np.round(horizon**(1 / (2 + 2 * dx_bar + da_bar)), decimals=8)))
 
         # calculate sets of tuples: num of tuples are (d choose d_bar) for each
