@@ -3,7 +3,7 @@ import sklearn.metrics as skmetrics
 import numpy as np
 
 
-class InstanceBasedUniformPartitioningBandit:
+class InstanceBasedUniformPartitioning:
     def __init__(self, horizon, dx, da, conf_scale=1.0):
         self.horizon, self.conf_scale = horizon, conf_scale
         self.dx, self.da, self.d = dx, da, (dx + da)
@@ -24,7 +24,7 @@ class InstanceBasedUniformPartitioningBandit:
 
         self.last_played_arm_ind = -1
 
-    def determine_arm_one_round(self, context):
+    def select_arm(self, context):
         # calculate distances from context to all context centers
         dist_to_centers = np.squeeze(skmetrics.pairwise_distances(np.expand_dims(context, axis=0),
                                                                   self.context_centers, metric='cityblock'))

@@ -194,7 +194,7 @@ class ContextualMultiArmedBanditWithRelevanceLearning:
         ucbs = est_mean_ys + self.conf_scale * 5 * u_vals_pw_ys
         return ucbs
 
-    def determine_arm_one_round(self, context):
+    def select_arm(self, context):
         pw_inds = self.find_pws_context_resides(context)
         cys = self.determine_cys(pw_inds)
         ucbs = self.calculate_ucbs(cys, pw_inds)

@@ -6,5 +6,5 @@ class UniformRandomBandit:
     def __init__(self, da):
         self.da = da
 
-    def determine_arm_one_round(self):
+    def select_arm(self):
         return np.random.rand(self.da)

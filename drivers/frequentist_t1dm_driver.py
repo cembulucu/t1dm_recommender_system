@@ -2,9 +2,9 @@ import pickle
 import numpy as np
 import time
 
-from bandit_algorithms.c_hoo import ContextualHierarchicalOptimisticOptimizationBandit as CHoo
+from bandit_algorithms.c_hoo import ContextualHierarchicalOptimisticOptimization as CHoo
 from bandit_algorithms.cmab_rl import ContextualMultiArmedBanditWithRelevanceLearning as CmabRl
-from bandit_algorithms.iup import InstanceBasedUniformPartitioningBandit as Iup
+from bandit_algorithms.iup import InstanceBasedUniformPartitioning as Iup
 from bandit_algorithms.uniform_random_bandit import UniformRandomBandit as Urb
 from t1dm_environments.t1dm_grad_boost_env import T1DMGradientBoostingEnvironment
 
@@ -45,10 +45,10 @@ if __name__ == '__main__':
             c, patient_id = bandit_env.get_context()
 
             # determine played arms for each algorithm
-            y_cmabrl = cmabrl.determine_arm_one_round(c)
-            y_choo = choo.determine_arm_one_round(c)
-            y_iup = iup.determine_arm_one_round(c)
-            y_urb = urb.determine_arm_one_round()
+            y_cmabrl = cmabrl.select_arm(c)
+            y_choo = choo.select_arm(c)
+            y_iup = iup.select_arm(c)
+            y_urb = urb.select_arm()
 
             # get reward for each algorithm
             r_cmabrl, cgm_cmabrl = bandit_env.get_reward_at(c, y_cmabrl, noise_std=5.0)

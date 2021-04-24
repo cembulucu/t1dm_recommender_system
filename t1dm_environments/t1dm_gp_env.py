@@ -12,7 +12,7 @@ class T1DMGaussianProcessEnvironment(T1DMBaseEnvironment):
         super().__init__(patients_data)
 
         # normalize the contexts and arms so that all features have zero mean and unit variance
-        contexts_scaler, arms_scaler = StandardScaler(feature_range=self.context_range), StandardScaler(feature_range=self.arm_range)
+        contexts_scaler, arms_scaler = StandardScaler(), StandardScaler()
         self.contexts, self.arms = contexts_scaler.fit_transform(self.contexts), arms_scaler.fit_transform(self.arms)
 
         # for each patient construct Gaussians, these models are going to be used for context generation
@@ -24,5 +24,5 @@ class T1DMGaussianProcessEnvironment(T1DMBaseEnvironment):
         # fit Gaussian process regressor that allows different weights for different dimensions
         feats_data = np.concatenate((self.contexts, self.arms), axis=-1)
         kernel = RBF(length_scale=[1] * 10, length_scale_bounds=(1, 100))
-        self.regressor = GaussianProcessRegressor(kernel=kernel, alpha=1)
+        self.regressor = GaussianProcessRegressor(kernel=kernel, alpha=1,)
         self.regressor.fit(feats_data, np.squeeze(self.reward_variables))

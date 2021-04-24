@@ -25,7 +25,7 @@ def contains_context(context, center, dim_radii):
     return np.all([np.all(context <= up), np.all(context >= low)])
 
 
-class ContextualHierarchicalOptimisticOptimizationBandit:
+class ContextualHierarchicalOptimisticOptimization:
 
     def __init__(self, dx, da, horizon, conf_scale=1.0):
         # input parameters
@@ -44,7 +44,7 @@ class ContextualHierarchicalOptimisticOptimizationBandit:
         self.last_played_hi_pair = (-1, -1)
         self.last_path = []
 
-    def determine_arm_one_round(self, context):
+    def select_arm(self, context):
         """ this method determines an arm given context, follows the pseudo-code in the paper, the difference is that
         in every step one has to consider which child contains the context"""
         # we will start with the root node everytime
