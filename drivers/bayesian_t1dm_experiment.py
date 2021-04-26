@@ -11,7 +11,6 @@ from t1dm_environments.t1dm_gp_env import T1DMGaussianProcessEnvironment
 if __name__ == '__main__':
     # define experiment setup
     n_repeats = 20
-    npz_str = 'CGPUCBRL_vs_CGPUCB_t1dm_bayesian_reps' + str(n_repeats)
     horizon, verbose_period = 100, 20
 
     # load data
@@ -76,6 +75,3 @@ if __name__ == '__main__':
                 print(np.round(np.histogram(cgm_hist_cgpucb[r, :t], bins=[0, 80, 180, np.inf])[0] / t, decimals=2))
                 print(np.round(np.histogram(cgm_hist_cgpucbrl[r, :t], bins=[0, 80, 180, np.inf])[0] / t, decimals=2))
                 print(np.round(np.histogram(cgm_hist_urb[r, :t], bins=[0, 80, 180, np.inf])[0] / t, decimals=2))
-
-                # print('CGP-UCB stats, avg rew: %.3f' % (rews_cgpucb / (t + 1)), ', sum rew: %.2f' % rews_cgpucb)
-                # print('CGP-UCB-RL stats, avg rew: %.3f' % (rews_cgpucbrl / (t + 1)), ', sum rew: %.2f' % rews_cgpucbrl)
