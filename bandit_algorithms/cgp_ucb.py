@@ -19,12 +19,12 @@ class ContextualGaussianProcessUpperConfidenceBoundAlgorithm:
         self.delta = delta
         self.cs = confidence_scale
         self.last_played_point = None
-        self.arm_limits = arm_limits
 
     def select_arm(self, context):
         if self.t == 0:
-            selected_arm = (self.arm_limits[1] - self.arm_limits[0]) * np.random.rand(self.da) + self.arm_limits[0]
-            self.last_played_point = np.concatenate((context, selected_arm))[np.newaxis, :]
+            rand_int = np.random.randint(low=0, high=self.arm_grid.shape[0])
+            selected_arm = self.arm_grid[rand_int]
+            self.last_played_point = np.concatenate((context, selected_arm))
         else:
             context_arm_grid = self.calculate_context_arm_grid(context=context)
             mean_est, var_est = self.calculate_posterior_mean_var(context_arm_grid=context_arm_grid)

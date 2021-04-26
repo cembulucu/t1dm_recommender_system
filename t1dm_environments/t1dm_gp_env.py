@@ -18,11 +18,11 @@ class T1DMGaussianProcessEnvironment(T1DMBaseEnvironment):
         # for each patient construct Gaussians, these models are going to be used for context generation
         self.fit_patient_context_density_estimators(density_estimator=GaussianMixture(n_init=10, n_components=1))
 
-        # oversample the contexts, arms and reward variables so all number of data for each patient is equal for the regression model
-        self.random_over_sample_patients()
+        # undersample the contexts, arms and reward variables so all number of data for each patient is equal for the regression model
+        self.random_under_sample_patients()
 
         # fit Gaussian process regressor that allows different weights for different dimensions
         feats_data = np.concatenate((self.contexts, self.arms), axis=-1)
-        kernel = RBF(length_scale=[1] * 10, length_scale_bounds=(1, 100))
+        kernel = RBF(length_scale=[1] * 10, length_scale_bounds=(1, np.inf))
         self.regressor = GaussianProcessRegressor(kernel=kernel, alpha=1,)
         self.regressor.fit(feats_data, np.squeeze(self.reward_variables))

@@ -6,7 +6,7 @@ import sklearn.metrics as skmetrics
 def calculate_power_set(iterable):
     """ power set([1,2,3]) --> () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3) """
     s = list(iterable)
-    return np.array(list(itertools.chain.from_iterable(itertools.combinations(s, r) for r in range(len(s) + 1))))
+    return list(itertools.chain.from_iterable(itertools.combinations(s, r) for r in range(len(s) + 1)))
 
 
 def rbf_kernel_w_linear_coefficients(data_1, data_2, coefficients=None):

@@ -1,5 +1,6 @@
 import numpy as np
 from imblearn.over_sampling import RandomOverSampler
+from imblearn.under_sampling import RandomUnderSampler
 
 
 class T1DMBaseEnvironment:
@@ -49,6 +50,12 @@ class T1DMBaseEnvironment:
 
     def random_over_sample_patients(self):
         ros = RandomOverSampler()
+        ros.fit_resample(np.zeros(shape=(self.patient_ids.shape[0], 1)), self.patient_ids)
+        ros_inds = ros.sample_indices_
+        self.contexts, self.arms, self.reward_variables = self.contexts[ros_inds], self.arms[ros_inds], self.reward_variables[ros_inds]
+
+    def random_under_sample_patients(self):
+        ros = RandomUnderSampler()
         ros.fit_resample(np.zeros(shape=(self.patient_ids.shape[0], 1)), self.patient_ids)
         ros_inds = ros.sample_indices_
         self.contexts, self.arms, self.reward_variables = self.contexts[ros_inds], self.arms[ros_inds], self.reward_variables[ros_inds]
