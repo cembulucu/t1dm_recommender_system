@@ -12,7 +12,7 @@ if __name__ == '__main__':
     # define experiment setup
     n_repeats = 20
     npz_str = 'CGPUCBRL_vs_CGPUCB_t1dm_bayesian_reps' + str(n_repeats)
-    horizon, verbose_period = 100, 100
+    horizon, verbose_period = 100, 20
 
     # load data
     root_path = '../t1dm_pickles/'
@@ -35,7 +35,7 @@ if __name__ == '__main__':
         cgpucb = ContextualGaussianProcessUpperConfidenceBoundAlgorithm(horizon=horizon, dx=dx, da=da, space_diameter=34, delta=0.01,
                                                                         confidence_scale=0.01)
         cgpucbrl = ContextualGaussianProcessUpperConfidenceBoundWithRelevanceLearning(horizon=horizon, dx=dx, da=da,
-                                                                                      confidence_scale=0.05, fit_ard_period=5)
+                                                                                      confidence_scale=0.01, fit_ard_period=5)
         urb = UniformRandomBandit(da=da)
 
         start_clock = time.time()
